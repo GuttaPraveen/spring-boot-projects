@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean id="emp1" class="com.trio.praveen.Employee">
+		<constructor-arg index="2" value="30000.00"></constructor-arg>
+		<constructor-arg index="0" value="1240"></constructor-arg>
+		<constructor-arg index="1" value="Praveen"></constructor-arg>
+	</bean>
+	<bean id="emp2" class="com.trio.praveen.Employee">
+		<constructor-arg index="1" value="Maha"></constructor-arg>
+		<constructor-arg index="0" value="1318"></constructor-arg>
+	</bean>
+	<bean id="emp3" class="com.trio.praveen.Employee">
+		<property name="empId" value="8919"></property>
+		<property name="empName" value="Rishi"></property>
+	</bean>
+</beans>

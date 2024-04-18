@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd">
+		<bean id="order" class="com.trio.praveen.collections.Order">
+			<constructor-arg value="1240"></constructor-arg>
+			<constructor-arg>
+				<list>
+					<value>Iphone13</value>
+					<value>Apple</value>
+					<value>HP</value>
+					<value>Dell</value>
+				</list>
+			</constructor-arg>
+			<constructor-arg value="20000.00"></constructor-arg>
+		</bean>
+		<bean id="orderPrices" class="com.trio.praveen.collections.Order">
+			<constructor-arg>
+				<set>
+					<value>100.00</value>
+					<value>200.00</value>
+					<value>300.00</value>
+					<value>400.00</value>
+					<value>500.00</value>
+				</set>
+			</constructor-arg>
+			<constructor-arg>
+				<map>
+					<entry key="" value=""></entry>
+				</map>
+			</constructor-arg>
+		</bean>
+</beans>

@@ -1,0 +1,1545 @@
+1. Spring Boot Introduction:
+   -------------------------
+
+	 J2EE : Servlets, Jsp, Jdbc, RMI, EJB..etc
+	  | 
+	Spring Framework
+	  |
+	Spring Boot
+
+
+ There was so much of complex involved to develope the applications using J2EE
+
+ " The main goal of spring framework was to make J2EE application development is easier".
+
+ "The main goal of spring boot was to make spring application development is easier"
+
+ Spring boot says - Hey there are so many of complexities in spring framework 
+
+
+	Spring Framework is used to develop all type of applications
+
+			Spring Core - stand alone
+			Spring Mvc  - web application
+			Spring Rest - Distributed applications
+			Spring JDBC/ORM - Database applications
+			:
+			:
+
+	Spring Boot is used to develop all type of applications
+
+
+If already Spring Framework was there why market has been introducted spring boot?
+
+Sol : 
+
+	Spring Boot is not a replacement of spring framework
+	Spring Boot is one of the module in spring framework
+
+	Spring Version          Spring Boot Version
+
+	  6.x				3.x , 2.5.2 	
+
+
+ Most of the current projects will not use latest version, it is recommend use N-1 or N-2 version
+
+ Pre Requisting: 
+
+   All the spring modules : Core, MVC, DAO, ORM, JPA, AOP, Security...etc
+
+
+
+Complexities in Spring Framework:
+=================================
+
+	#1. Adding dependency in pom.xml
+
+		1. Need to spend lot of time to add the dependencies 
+		2. jar compatibility versions
+
+			spring mvc 4.x --------> hibernate 3.x
+			spring mvc 4.x --------> jackson
+
+	#2. Developer need to write lot of manual configuration either xml or java config
+
+		@Configuration
+		public class BankingApplicationConfig{
+
+			@Bean
+			public JdbcTemplate jdbcTemplate(){
+
+
+			}
+
+			:
+			:
+			:
+	
+
+		}
+
+	#3. Production Ready fatures like how much memory, how many beans, health check....etc
+
+
+	#4. Deploy the application into external server
+
+		|--- prepare ware file and deply into server
+
+
+
+1. Dependency management is too hard
+
+2. Lot of manual configuration is required
+
+3. Difficult for new commerce to undersand the spring application.
+
+To overcome all the spring source (spring framework) team has introduced spring boot into market
+
+-->Spring boot one of the module/project in spring framework and it is not a replacement of spring f/w
+
+	spring boot = all the spring modules ( core + mvc + jdbc + jpa + batch + security ..etc)
+
+
+Spring Boot features:
+=====================
+
+	#1. Dependency Management is easier
+	#2. Auto Configuration
+	#3. Embeded Server
+	#4. Actuator
+	#5. Devtools
+	#6. spring boot without xml configuration
+	#7. Opinionated but highly customizable
+	#8. Spring boot CLI
+
+			
+#1. Dependency Management is easier :
+    --------------------------------
+
+	Spring Boot has introduced 2 modules which can make dependency management is easier
+
+		1. spring-boot-parent-pom
+		2. spring-boot-starter-dependency
+	
+
+spring-boot-parent-pom : It is used to maintain all the version of spring framework jars
+			 and their dependencies, third party jars versions
+
+
+	parent-pom - 1.x =====> spring core 2.x, spring mvc 2.x , jackson 1.x, kafka 1.x..etc
+	parent-pom - 2.x =====> spring core 3.x, spring mvc 3.x , jackson 1.x, kafka 1.x..etc
+	parent-pom - 2.5.x =====> spring core 4.x, spring mvc 4.x , jackson 2.x, kafka 1.x..etc
+
+
+spring-boot-starter-{dependency}
+
+spring-boot-starter-mvc --------> It will pull what are all the required jars to develop mvc application
+
+ 						|-spring core - 2.x
+		 				|-spring mvc  - 2.x
+parent-pom - 1.5 ==>spring-boot-starter-mvc	|-spring context - 2.x 
+ 						|-spring jdbc    - 2.x
+		 				|-hibernate      - 2.x
+ 						|-jackson	 - 2.x	
+				
+ 						|-spring core - 4.x
+ 						|-spring mvc  - 4.x
+ 	parent-pom - 2.5.2 =====>		|-spring context - 4.x 
+ 						|-spring jdbc    - 4.x
+ 						|-hibernate      - 4.x
+ 						|-jackson	 - 4.x	
+
+spring-boot-starter-jdbc --------> It will pull what are all the required jars to develop jdc application
+
+spring-boot-starter-redis --------> It will pull what are all the required jars to develop jdc application
+
+
+
+"Dependends on the parent pom version it will vary the starter pom jar version..Is this correct or not ?"
+
+
+2. Auto Configuration:
+
+	During spring boot application startup, it will create spring container(ApplicationContext) and all the
+        required objects automatically created and apply dependency injections also. 
+
+	@EnableAutoConfiguration
+
+
+3. Embeded Server : 
+
+	Tradional Model : Develope the application and Deploy the application into server
+
+	Modern Model    : Develop the application then start the application which will take care 
+			  start the server and deploy the application into server.
+
+
+	"Server inside the application is called Embeded Server"
+
+4. Actuator : 
+
+	-->It used to provide the production ready features -- "spring-boot-starter-actuator"
+
+		a. no.of beans  : /beans
+		b. how much memory allocated : /metrics		up & running : application is live and able
+		c. healtch check  :/healthcheck					to provide the response or not
+
+			http://prod.citibank.com:9090/health -- o/p : 200 ok
+			http://prod.citibank.com:9090/beans
+			http://prod.citibank.com:9090/metrics
+
+5. Devtools :
+
+	-->It is used to improve the developer productivity
+	-->If any development changes happend then it will recompile, generate jar and automatically deploy  	   new jar changes into server.
+	-->It is only used for developer local system
+
+6. spring boot without xml configuration
+
+7. Opinionated but highly customizable 
+
+
+						|-spring core - 2.x
+		 				|-spring mvc  - 2.x
+parent-pom - 1.5 ==>spring-boot-starter-mvc	|-spring context - 2.x 
+ 						|-spring jdbc    - 2.x
+		 				|-hibernate      - 2.x
+ 						|-jackson	 - 2.x	
+
+	1. we can customize our own version and we can exclude whatever dependency we dont want.
+                                
+#8. Spring boot CLI 
+
+	-->we can develop the quick prototype of spring boot application
+
+		>mvn springboot:run
+
+		@SpringBootApplication
+		public class SpringBootMain{
+
+			
+
+		}
+
+
+4. Approaches to create the spring boot application
+
+	1. Manual Approach - Eclipse IDE
+	2. Using https://start.spring.io/
+	3. Using STS IDE
+
+	
+
+	2. Using https://start.spring.io/: 
+
+
+	
+	https://start.spring.io/starter.zip?
+		name=spring-boot-demo&
+		groupId=com.citibank.application&
+		artifactId=spring-boot-demo&version=1.0-SNAPSHOT&
+	description=Demo+project+for+Spring+Boot+application&packageName=com.citibank.product&type=maven-project&packaging=jar&javaVersion=1.8&language=java&bootVersion=2.7.17.RELEASE&dependencies=web
+
+
+Note : Every spring boot application, default main class will be created as below
+
+@SpringBootApplication
+public class SpringBootDemoApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootDemoApplication.class, args);
+	}
+
+}
+
+Understanding the spring boot entrypoint or main class:
+-------------------------------------------------------
+
+ -->Every spring boot application main class is mandatory which will take care enable auto configuration and
+     enable Embeded server, deploy our appilcation into embeded server
+
+ -->Always recommended keep thie main class in global package
+
+		project
+		  |-com.sreenutech
+			|-SpringBootDemoApplication.java
+		  |-com.sreenutech.controller
+		  |-com.sreenutech.service
+		  |-com.sreenutech.dao 
+	
+
+
+
+Spring Core - without spring boot:
+================================
+
+@Component
+public class B {
+	
+	public void m2() {
+		
+		System.out.println(" m2() method ");
+	}
+
+}
+
+@Component
+public class A {
+	
+	public void m1() {
+		
+		System.out.println(" m1() method ");
+	}
+
+}
+
+
+configuration:
+
+@Configuration
+@ComponentScan({basePackage="com.sreenutech"}) or @ComponentScan({basePackage="com.sreenutech.a,com.sreenutech.b"})
+public class JavaConfig{
+
+
+
+
+
+}
+
+ApplicationContext context = new AnnotationConfigApplicationContext(JavaConfig.class)
+
+A aobj =  context.getBean(A.class);
+
+
+  com.st		@ComponentScan({basePackage="com.st.controller"}) -- only B class and D Obj created
+	A.java		@ComponentScan({basePackage="com.st.service"}) -- only C class Obj created
+  com.st.controller	@ComponentScan({basePackage="com.st"}) -- Both A, B, C , D class Obj created
+	B.java	
+   com.st.controller.abc
+	D.java		
+  com.st.service
+	C.java
+
+
+Spring Core - How to load the properties file
+
+	customer.properties	@PropertySource(classpath:customer.properties) // load the properties
+	------------------			
+		
+	  uname=sreenu		How to get the values from the properties file
+	  password=%^&*(	
+					1. using Environment class 
+
+						@Autowired
+						Environment env;
+						
+						String uname    = env.getProperty("uname");
+						String password = env.getProperty("password");
+
+						@Value("${uname}")
+						private String username
+
+
+Note : 
+
+ 1. by default springboot will load application.properties file which predefined file
+
+ 2. Generally application.properties file will have all the predefined configuration like 
+
+	database url, uname, password, redicaache, kafka, server port..etc
+
+    but we can add user defined cofiguration details also
+
+
+3. If we want configure our own properties file (customer.properties or products.properties..etc) then 
+   we need to write manual code to load the properties
+
+	@PropertySource(classpath:customer.properties) // load the properties
+
+Q) What happend when the SpringApplication.run() will be executed?
+
+	ApplicationContext context = SpringApplication.run(Application.class, args);
+
+Sol : 
+
+		Spring Container -----> standlone , web container, react container
+
+
+	1. Create an empy Envrionment Object
+
+	   Envrionment Object will be embeded with in ioc container, which holds the configuration values
+	   that will be used by the conainer during instantiating the objects 
+
+	2. print banner
+
+	3. detects/identifies the type of application by looking into jars in the classpath of project
+
+		1. It will check if the classpath has servelt or spring mvc jars then it will create
+ 		
+		   spring web container. i.e. AnnotationConfigServletWebServerApplicationContext object
+
+		2. if spring mvc jars not found then looks for web flux jars in the classpath, if it is found
+		   then AnnotationConfigReactiveWebServerApplicationContext object
+
+		3. If spring mvc and web flux jars not found then standlone container will be created. 
+	        	AnnotationConfigApplicationContext
+
+	4. It instantiates the spring factories ( i.e. load the spring.factories file from spring boot 	  	   autoconfigure jar) and register them with ioc container
+
+	5. invokes the ApplicationContextIntializer
+
+	6. prepareContext
+
+	7. It will execute runners like CommandLine Runner and Application Runner to load the startup 		   configuration like one time activities
+
+
+
+Q) How does @SpringBootApplication will work?
+
+Sol : It is used to take care of enable auto configuration, it will use internally 3 annotations
+
+		1. @SpringBootConfiguration --- which is equivalent to @Configuration annoatation
+
+			i.e. @SpringBootConfiguration = @Configuration
+
+		2. @EnableAutoConfiguration
+		3. @ComponentScan -- It is used to get the basepackage or current package of @SpringBootApplication declared class. i.e. which main class
+
+			ex : @ComponentScan(basePacakge="com.citibank.product")
+
+
+
+	2. @EnableAutoConfiguration : 
+
+It is used to load the spring.factories file and uses @Conditionalxxx() annotations and create those classes
+objects inside the container
+
+	There are 5 conditional annotations
+
+		1. @ConditionalOnBean
+		2. @ConditionalOnClass
+		3. @ConditionalOnProperty
+		4. @ConditionalOnResource
+		5. @ConditionalOnApplicationType
+
+	
+
+	@CondtionalOnBean(B.class)			@CondtionaProperty("spring.jdbc.database.url")
+	@Component
+	class A{					public class JdbcTemplate{
+
+
+	}						}
+
+	class B{
+
+	}
+
+
+
+	Springboot has provided spring-boot-autoconfigure.jar which will har spring.factofies file
+	spring.factories file contains list of all the predefined autoconfiguraion class but will not
+        load all the autoconfiguration classes during startup, based on @ConditionalXXX annoations it will
+	load the required autoconfiguration classes, those classes will take care create the required bean
+        in contianer. use those beans in our project.
+
+
+
+How to load the propertie based on evironments?
+
+Sol : There are different environments like dev, test, uat, production
+
+	in spring core:
+	===============
+
+		product_db_dev.properties
+			db_url	 = 
+			username =
+			password = 
+			
+		product_db_test.properties
+			db_url	 = 
+			username =
+			password =
+		product_db_prod.properties
+			db_url	 = 
+			username =
+			password =
+
+
+ We need to write below code manually to load the environment based properties file
+
+@Configuration
+@ComponentScan(basePackages="com.st.spring.core.beans")
+public class SpringConfig {
+	
+	@Bean
+	@Profile("dev")
+	public PropertySourcesPlaceholderConfigurer devEnvProperties() {
+		PropertySourcesPlaceholderConfigurer placeHolder = new PropertySourcesPlaceholderConfigurer();
+		placeHolder.setLocation(new ClassPathResource("sample-dev.properties"));
+		return placeHolder;
+	}
+	
+	@Bean
+	@Profile("qa")
+	public PropertySourcesPlaceholderConfigurer qaEnvProperties() {
+		PropertySourcesPlaceholderConfigurer placeHolder = new PropertySourcesPlaceholderConfigurer();
+		placeHolder.setLocation(new ClassPathResource("sample-qa.properties"));
+		return placeHolder;
+	}
+	
+	@Bean
+	@Profile("prod")
+	public PropertySourcesPlaceholderConfigurer prodEnvProperties() {
+		PropertySourcesPlaceholderConfigurer placeHolder = new PropertySourcesPlaceholderConfigurer();
+		placeHolder.setLocation(new ClassPathResource("sample-prod.properties"));
+		return placeHolder;
+	}
+
+}
+
+How to send environment name
+
+	java -Dspring.profiles.active=dev -jar springboot jar
+			|
+		@Profile("dev")
+
+
+In spring boot no need write configuration code to load the envronment based properties when using application.properties as below
+
+	application.properties
+	application_dev.properties  --- -Dspring.profile.active=dev
+	application_test.properties --- -Dspring.profile.active=test
+	application_uat.properties  --- -Dspring.profile.active=uat
+	application_prod.properties --- -Dspring.profile.active=prod
+
+If we want configure other than predefined application.properties.i.e. product_dev.properties then we need 
+write manual code like in spring core
+
+Summary:
+========
+
+	1. Spring vs Spring Boot
+	2. Complexities in spring
+	3. Spring Boot features
+	4. Spring Boot entry class
+	5. How does @SpringBootApplication will work internally
+	6. How does SpringApplicaion.run() method will work internally
+	7. Spring Core examples
+		a. dependency management
+		b. how to load the properties
+		c. profile based properties
+		d. how to load custom properties file
+
+==========================================================================================
+
+	Can we load the properties file without using @Value Annotation?
+
+	application.properties:
+	-----------------------
+	product.id=123
+	product.name=mobile
+	product.desc=good
+	product.price=10000.00
+	:
+	:
+
+	spring boot will load the application.properties file by default
+	using @Value annotation we can get the values from the properties
+
+	@Component
+	public class A {
+	
+					no.of properties = no.of @Value annotation
+	
+	@Value("${uname}")
+	private String username;
+	
+	@Value("${product.name}")
+	private String name;
+	
+	@Value("${product.id}")
+	private String id;
+
+ Using @ConfigurationProperties annotation we can get the all the properties values into 
+ bean/model class
+
+
+	What is the difference between normal jar and springboot jar?
+
+	How to run spring boot jar? How does it executes?
+
+	What happend when we run java -jar springboot.jar file will be executed?
+
+  normal jar : will have only .class files
+  uber jar/fat jar/aggregator jar : .class file + dependent jars + class loaders + main class
+
+ How to run spring boot application?
+
+Sol : local from ide : right click as spring boot application
+
+     Remote Server like AWS
+
+  To covert normal jar into spring boot jar(uber jar or fat jar) then we should add below
+  build plugins in pom.xml
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+
+spring boot directory structure
+
+	|-META-INF
+	   |-MANIFEST.MF
+		Main-Class: org.springframework.boot.loader.JarLauncher
+		Start-Class: com.citibank.product.SpringBootDemoApplication
+		Spring-Boot-Classes: BOOT-INF/classes/
+		Spring-Boot-Lib: BOOT-INF/lib/
+	|-BOOT-INF
+	   |-classes
+		*.class (our application classes)
+	   |-lib
+		*.jars(our dependent jars)
+	|-org
+	  |-springframework
+		|-boot
+		   |-loader
+			|-Launcher.class
+			|-JarLauncher.class
+			|-WarLauncher.class
+
+ spring boot will use customized class loaders to load the .class files under boot-inf/classes
+
+Q) What happend when we run 'java -jar springboot.jar' file will be executed?
+
+Sol : 
+
+when java -jar springboot.jar file will be executed jarfile name will be passed to jvm
+
+jvm will performs below operation to execute our application
+
+	1. Jvm will invokes the default jar classloader	asking to load the .class files of jar
+	2. The default calssloader loads only the .class files packages inside the jar which
+	   are nothing but
+		
+		org.springframework.boot.Luancher
+		org.springframework.boot.JarLuancher
+		org.springframework.boot.WarLuancher
+
+	3. upon loading the .class files jvm will reads the META-INF/MANIFEST.MF file
+	   and get JarLauncher class (Main-Class: org.springframework.boot.loader.JarLauncher)
+
+	4. JarLauncher will loads all the .class file and dependent jars packaged 
+	   our jar files under BOOT-INF/classes and BOOT-INF/lib directories
+
+	5. The it goes to META-INF/MANIFEST.MF file and executes the start class (Start-Class: com.citibank.product.SpringBootDemoApplication) and read the main class name of our application
+           and calls the main() method to begin execution of our application.
+
+==================================================================================================
+
+Spring MVC:
+==========
+
+	-->Using spring mvc we can develop web application and distributed application
+	-->Using spring boot very rare to develop web applications, most of the time we will be used
+	   distributed application
+	
+
+Implementation Steps to develop distributed application using spring boot
+
+Distributed Application : develop the rest api
+
+1. create a maven project
+
+2. add spring-boot-starter-web maven dependency in pom.xml
+
+3. write controller class which represents @RestController annotation
+
+4. Build a jar and Run the jar
+
+	>java -jar springboot.jar 
+
+		|-It will execute the main() method from main class
+			|-Intialize embeded tomcat server with the help of autoconfiguration classes
+		            |-Deploy the application into server	
+				|-Create all the autoconfiguration classes like DispatcherServlet					
+
+
+Conditional Annotations:
+
+1. class Conditions - @CondtionalOnClass
+		      @ConditionalOnMissingClass
+
+2. bean conditions  - @ConditionalOnBean
+		      @ConditionalOnMissingBean	
+
+3. Property Conditions - @ConditionalOnProperty
+
+4. Resource Conditions - @ConditionalOnResource
+
+5. Webapplication conditions - @ConditionalOnWebApplication
+			       @ConditionalonNotWebApplication
+
+
+
+There are 4 emebeded servers are available in spring boot
+
+	1. Tomcat
+	2. Jetty
+	3. Undertow
+	4. Netty
+
+http://localhost:2022/products/1234
+
+How to integrate with database: 
+
+ 1. add spring boot starter jdbc dependency in pom.xml
+
+ 2. 
+
+
+ 3. Get the JdbcTemplate object with the help of autoconfiguration feature
+
+ 
+
+spring dao without springboot
+=============================
+
+@Autowried			
+JdbcTemplate jdbcTemplate
+
+
+@Configuration
+public class DatabaseConfiguration{		<bean> = @Bean = @Component = @Named
+
+
+	@Bean
+	public DataSource dataSource(){
+
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDBUrl("");
+		dataSource.setUsername("");
+		dataSource.setPassword("");
+
+	}
+
+	@Bean
+	public JdbcTemplate jdbcTemplate(DataSource dataSource){
+
+
+	return new JdbcTemplate(dataSource);
+	}
+}
+
+
+
+Summary:
+========
+
+Day1 : 
+
+Part 1 :
+	1. Spring vs Spring Boot
+	2. Complexities in spring
+	3. Spring Boot features
+	4. Spring Boot entry class
+	5. How does @SpringBootApplication will work internally
+	6. How does SpringApplicaion.run() method will work internally
+	7. Spring Core examples
+		a. dependency management
+		b. how to load the properties
+		c. profile based properties
+		d. how to load custom properties file
+Part 2 : 
+
+	8.  @ConfigurationProperties
+	9.  Spring boot internals on - java -jar springboot-file.jar
+	10. autoconfiguration - Tomact, DispatcherServlet
+	11. Embeded Servers -  Tomcat, Jetty, Undertow, Netty
+	12. spring mvc - spring boot 
+		|-distributed application
+	13. spring jdbc integration
+		
+==============================================================================================================
+
+Day2 - Topics:
+
+	1. Spring Boot - Spring Data JPA
+
+	2. Spring Boot with angular integration
+
+	3. docker - How to dockerize spring boot application
+
+	4. security
+
+	5. redis cache
+
+	6. kafka
+
+
+=============================================================================================================
+
+Spring Boot integration with Angular
+
+	
+
+Angular :
+
+	-->Angular is used to develop the single page applications
+	-->Angular will used MVC architecture, where M-Model, V-view, C-Controller
+	-->If we want display the dynamic data on web page from angular then we should call api's
+           and get the response
+	-->To call API's, consumer/client should know the below details
+			
+			1. api endpoint url
+			2. api request and response structure
+			3. api error details
+			4. http methods
+			:
+			:
+	   
+    Cosumer should get the service userguide (swagger) documentation from provider
+		
+    In realtime service provider will prepare the swagger documentation and share the swagger
+    documentation to consumer
+
+   Swagger Documentation:
+   ======================
+
+	-->Swagger is an rest api userguide documentation
+	-->It is in the form json or yaml or rich UI
+	-->Every technology developer must must understand the Swagger Documentation. i.e. developer
+           should know the json and yaml
+
+	https://www.youtube.com/watch?v=_k_uCWWbccg&pp=ygUXanNvbiBzcmVlbnV0ZWNobm9sb2dpZXM%3D
+
+	-->Swagger contains the information about service like
+
+			a. name of the service
+			b. description
+			c. endpoint url - how to call the service
+			d. request and response elements (input and output elements)
+			e. error code details
+				
+	
+Swagger Implementation:
+=======================
+
+	1. add the below dependency in pom.xml
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+	2. Write the swagger configuration class as below, which will take care to scan the 
+	   controller classes and generate the swagger document
+
+	3. access the swagger using below url
+		http://localhost:2022/swagger-ui/index.html
+		http://dev.citibank.productservice:2022/swagger-ui/index.html#/
+
+
+Consumer Implementation:
+========================
+
+	-->Get the swagger documentation from provider
+	-->Understand the swagger documentation
+	-->Do the basic unit testing
+	-->Write the service client in angualr 
+		a. prepare the uri
+		b. prepare the request
+		c. call the service and get the response
+
+		
+Front End Developers will use Visual Studio code to develop the web applications
+
+	
+#1. install the angular
+
+	npm install -g @angular/cli
+
+#2. install the node js
+
+	
+	It is in the form of .msi file
+	Download .msi file freely from https://nodejs.org/en/download, just double click on next, next
+	and then finish
+
+#3. create the project in angular
+
+	
+	maven   -- pom.xml  	-- all the required jars
+	angular -- package.json -- all the required js libraries
+
+#4. how to create the components
+	
+	>ng c componentname
+	>ng c product
+
+#5. how to create the service
+	
+	>ng s servicename
+	>ng s product
+
+#6. Deploy the application into server and test it
+
+	>ng serve
+
+=====================================================================================================
+
+Spring Data JPA:
+=================
+
+	-->It is one of the module/project in spring framework
+	-->This module is used to connect with database and get the data
+	-->It is used to elimnate the lot of code in dao layer. i.e. developer no need to 
+	   write the the code in dao
+
+      -->Spring Data JPA has provided predefined interface to interact database
+
+			Repository		
+			   |
+			CrudRepository		
+			   |
+			PaginAndSortingRepository
+			   |
+			JpaRepository			--- findById()
+		
+
+	select * from producters where id = product id //   findById(productid)
+
+	select * from producters; // findAll()
+
+
+
+	insert the data         save()
+	retrive the data	findAll(),findById()
+	update the data         save()
+	delete the data         delete
+
+
+	public interface ProductRepository extends JpaRepository<int>{
+
+		//no code
+
+	}
+
+
+	usecase 1 : basic examples
+	
+	usecase 2 : how to write our own methods // derived queries
+
+	usecase 3 : @Query() annotation how to call
+
+	
+
+Our requirement is complex like 
+
+	a. get the products based on customerid and produtid
+
+        public Product findByCustomerIdAndProductId(String customerid, productid);
+
+	findByXXX() method, spring data jpa will derive the queries as below
+
+	  select * from products where productid=123 and customerid = 1111;
+	
+	b. get the products based on customerid or produtid
+
+	 public Product findByCustomerIdOrProductId(String customerid, productid);
+
+	  findByXXX() method, spring data jpa will derive the queries as below
+
+	  select * from products where productid=123 or customerid = 1111;
+	
+
+ Note : Developer should have intelligent to write the findByXXXXXandXXX()
+
+
+
+ Data Jpa Usecase 1 : Stright requirement then use all the predefined methods
+
+	UserRepository userRepository = context.getBean(UserRepository.class);
+		
+		long count1 = userRepository.count();
+		System.out.println("Before insert the record " + count1);
+		
+		// save entities
+		User user = buildUser();
+		
+		//insert the record into database
+		
+		userRepository.save(user);
+		
+		// all other methods that we get with repository
+		
+		long count2 = userRepository.count();
+		System.out.println("after insert the record" + count2);
+		
+		// get the records where userid = 3
+		System.out.println(userRepository.findOne(3L));
+		
+		//get all the users records
+		System.out.println(userRepository.findAll());
+		
+		//delete the reocrd where userid = 4
+		userRepository.delete(4L);
+		//userRepository.delete(8L);
+		
+		long count3 = userRepository.count();
+		System.out.println("after delete the record" + count3);
+
+Data Jpa Usecase 2 : Complex requirements then choose derived methods
+	
+	//get model details : select * from Device where model = "iphone 12";
+	List<Device> findByModel(String model);
+	
+	//get device details based on model and manufacturer details
+	//select * from Device where model = "iphone 12" And manufacturer="Apple";
+	
+	List<Device> findByModelAndManufacturer(String model, String manufacturer);
+	
+	//select * from User where lastname = "sreenu";
+	List<Device> findByUserLastName(String lastName);
+	
+	//select * from Device where like = '% ip';
+	List<Device> findByModelContaining(String model);
+	
+	//get model details in asending order
+	List<Device> findByModelContainingOrderByModelAsc(String model);
+	
+	//get model details in descending order
+	List<Device> findByModelContainingOrderByModelDesc(String model);
+	
+	//get user detials based on user last name based on model and manufacture ascending order
+	List<Device> findByUserLastNameOrderByModelAscManufacturerAsc(String lastName);
+
+
+Usecase 3:  use @Query() annotation if we dont know how to write findByxxx() methods
+
+	ex : 
+	
+		@Query("select * from User where lastname = :lastName")
+		List<Device> getUserLastName(String lastName);
+
+==============================================================================================================
+	
+
+How to connect morethan one database in springboot?
+
+Sol : By default spring boot doesn't support autoconfiguration for multiple database, we need to write manual
+      configuration to connect 2 databases.
+
+	package com.st.spring.boot;
+
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+application.properties:
+----------------------
+app.datasource.first.url=jdbc:mysql://localhost:3306/st_bank
+app.datasource.first.username=root
+app.datasource.first.password=root
+
+app.datasource.second.url=jdbc:mysql://localhost:3306/st
+app.datasource.second.username=root
+app.datasource.second.password=root
+
+MultipleDataSourceConfiguration.java:
+-------------------------------------
+@Configuration
+public class MultipleDataSourceConfiguration {
+	
+	@Bean
+	@Primary
+	@ConfigurationProperties("app.datasource.first")
+	public DataSourceProperties firstDataSourceProperties() {
+		return new DataSourceProperties();
+	}
+	
+	@Bean
+	@Primary
+	public javax.sql.DataSource firstDataSource() {
+		return firstDataSourceProperties()
+				.initializeDataSourceBuilder()
+				.type(DataSource.class)
+				.build();
+	}
+	
+	@Bean
+	@ConfigurationProperties("app.datasource.second")
+	public DataSourceProperties secondDataSourceProperties() {
+		return new DataSourceProperties();
+	}
+	
+	@Bean
+	public javax.sql.DataSource secondDataSource() {
+		return secondDataSourceProperties()
+				.initializeDataSourceBuilder()
+				.type(DataSource.class)
+				.build();
+	}
+	
+	@Bean
+	public JdbcTemplate firstJdbcTemplate() {
+		return new JdbcTemplate(firstDataSource());
+	}
+	
+	@Bean
+	public JdbcTemplate secondJdbcTemplate() {
+		return new JdbcTemplate(secondDataSource());
+	}
+
+}
+
+
+
+	}
+      
+     
+MultiDataSourceDao.java
+-----------------------
+
+@Repository
+public class MultiDataSourceDao {
+	
+	@Autowired
+	@Qualifier("firstJdbcTemplate")
+	private JdbcTemplate firstJdbcTemplate;
+	
+	@Autowired
+	@Qualifier("secondJdbcTemplate")
+	private JdbcTemplate secondJdbcTemplate;
+	
+	public int firstDataSourceTest() {
+		return firstJdbcTemplate.queryForObject("select count(*) from st_user", Integer.class);
+	}
+	
+	public int secondDataSourceTest() {
+		return secondJdbcTemplate.queryForObject("select count(*) from card_details", Integer.class);
+	}
+
+}
+
+
+Spring Boot Actuator:
+=====================
+
+  When we build an application, we need to follow the non functional requirements before move the code into 
+  production envrionment
+
+	1. health check : application is up and running
+
+	2. metrics 
+
+	3. threaddumps
+
+	4. info
+
+	5. logs
+
+Before actuator development team spending lot of time to write the utilities/manual code to enable all the
+above features.
+
+Drawbacks:
+
+	1. cost of making the appliction production ready increase
+
+	2. There is delaying in deliver the application into production
+
+	3. we need to spend time on testing other utilities
+
+	
+
+To overcome all the problems in making application production ready, spring boot actuator comes into picture.
+	
+	  
+What is spring boot actuator? why do we use it?
+
+Sol : We can build production grade deplyable application stright from the development by using actuator module
+      spring boot
+
+      actuator module provides pre-packaged/inbuilt endpoints which are required to enable our application
+      to be deployable on production environment
+
+     some of the actuator endpoints list
+
+	1. /info : provides the information of our application
+
+	2. /health : check the health of the application
+
+	3. /env : to see all the envrionment variables of our applicaton
+
+	4. /bean : list down all the beans definitions within ioc container
+
+	5. /configprops : all the configuration properties as part of environment object of our ioc conainter
+	
+	6. /threadump : shows jvm thread dumps
+
+	7. /metrics : memory, cpu usage metrics
+
+	8. /logs    : shows the application log file  
+
+	9. /shutdown : to shutdown the application remotely, by default it is diabled for security reason
+
+	10. /mappings : displays all the api's requestURL/endpoints
+
+	11. /httptrace : display the http trace information
+
+	12. /startup   : shows the startup steps data
+
+	13. /cache : displays all the variables in cache	
+
+        :
+	:
+
+	
+-->By default all the above endpints are accessible with a prefix /actuator/endpointname
+
+	http://localhost:2022/actuator/health	
+	http://localhost:2022/actuator/metrics
+	http://localhost:2022/actuator/mappings
+
+These endpoints are exposed in 2 ways : 1. jmx 2. web
+
+  1. jmx endpoints : 
+
+	-->It is used to manage the jee application servers.
+
+	
+ 2. web (http) endpoints:
+
+	-->If we want access these endpoints, we need enable and expose them
+	-->Unless exposed those are not going to be accessible
+	-->By default all the endpoints are enabled except shutdown due to security reasons.
+
+	management.endpoint.endpointname.enabled=true/false
+    	
+	1. disable all the endpoints and want to enable specific endpoint
+	
+		management.endpoints.enabled-by-default=false// will disable all the endpoints
+		management.endpoint.info.enabled=true
+		management.endpoint.info.health=true
+		
+		
+	   these endpoints are enabled but not exposed
+
+	2. expose the endpoints
+		
+		management.endpoints.web.exposure.include=metrics,threaddump
+		management.endpoints.web.exposure.include=* (all the endpoints are exposed)
+
+To work with actuator, we need add spring-boot-starter-actuator in pom.xml
+
+		http://localhost:2022/actuator/health
+			
+============================================================================================================
+
+ Day2 
+
+	Part 1 : 
+		0. Swagger Implementation
+		1. Spring boot with Angular integration
+		2. Spring boot with database integration
+		3. Spring boot with Spring data jpa
+			a. predefined methods
+			b. dervied queires
+			c. @Query annotation
+		4. Spring Boot Actuator
+
+
+	Part 2 : 
+
+		1. Spring Boot Security
+		2. Docker
+		3. Redis Cache
+		4. Kafka
+		
+	
+		
+SpringBoot Security:
+====================
+
+-->There are many ways we can implement spring boot securrity
+-->There is no difference in writing code with spring boot security and spring security		
+   only difference is add spring-boot-starter-security dependency instead of adding lot of jars in pom.xml
+
+Implementation Steps:
+=====================
+
+Example 1: Basic Authentication (username and password)
+	1. add spring-boot-starter-security dependency in pom.xml
+	2. write configuration class which will take care authenitcation and authorization
+	3. write the restcontroller
+	4. If we will try access the controller class then it will execute configuration classes to 
+	   authenticate the credentials are valid or not, if it is valid proceed to execute controller class
+	   else will get "401 Un Authorised client" error
+
+Example 2 : OAuth2.0 (Token based authentication)
+
+	-->OAuth is used to open authentication protocol
+	-->It is a token based authentication mechanism
+	-->If we want access to any api's use token, if the token is valid the api will proceed to process the
+	   request else it will give error response.		
+
+	There are 4 components in OAuth
+
+		1. AuthorizationServer
+
+		2. Resource Server
+
+		3. Resource Client
+
+		4. Resource Owner
+
+https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?gsiwebsdk=3&client_id=700206021005-as1l679sch207mp70msgjhma1krf3k9q.apps.googleusercontent.com&scope=email%20profile&redirect_uri=storagerelay%3A%2F%2Fhttps%2Fwww.udemy.com%3Fid%3Dauth494273&prompt=consent&access_type=offline&response_type=code&include_granted_scopes=true&enable_granular_consent=true&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow
+
+https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?access_type=online&approval_prompt=auto&client_id=917071888555.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fwww.quora.com%2Fgoogle_%2Fcallback&response_type=code&scope=email%20profile&state=eyJwZXJtcyI6ICJub19jb250YWN0cyIsICJjc3JmIjogIjgzYTQ1YWI2MDcyNTljYmZmZTc0Zjk0YWQ3MzYyMDkxIiwgInBsYXRmb3JtIjogImRlc2t0b3AiLCAidGFyZ2V0IjogInNpZ251cCJ9&service=lso&o2v=2&theme=glif&flowName=GeneralOAuthFlow
+
+
+Authorization Server:
+======================
+
+http://localhost:9091/oauth/token
+
+	i/p :        o/p : hbjdf$%^&*()(*&^%nhhkf
+	client-id
+	secret-key
+	username
+	password
+
+o/p : success response
+
+{
+    "access_token": "af47821f-bd95-4134-a791-98be3bfea01d",
+    "token_type": "bearer",
+    "expires_in": 43199,
+    "scope": "read write"
+}
+
+o/p : error response
+
+{
+    "error": "invalid_grant",
+    "error_description": "Bad credentials"
+}
+	
+Resource Server (apis):
+=======================
+
+	http://localhost:9093/test
+
+		+
+
+	hbjdf$%^&*()(*&^%nhhkf
+
+
+output : hello world
+
+error output :
+
+{
+    "error": "invalid_token",
+    "error_description": "af47821f-bd95-4134-a791-98be3b"
+}
+
+===========================================================================================================
+
+Docker: How to containernized spring boot application
+
+
+Before Docker challenges:
+========================
+
+1. envrionmental issues : application will work in one environment and not work in another environment
+	i.e. There is no consistency in all the environments
+2. resource (cpu, ram) utilization is not effectively, bceause of this client will invest on more cost
+
+Virtualization:
+==============
+
+	The process of splitting single system into multiple machine is called viartualization
+ 
+
+Advantages:
+===========
+	
+	-->Resource utilization effectively
+
+Drawbacks:
+=========
+
+	-->Since it is bundled with os, it is tightly copuled
+	-->It is difficult to enable CICD (auto build and deployment)
+	-->Difficult to scale application
+	-->upgrading patches
+
+
+Docker :
+
+	Using docker we can utilize the resources effectively and resolve the envrionmental issues		
+	Build -- > Deploy ---> Run any where
+
+Docker Objects
+
+	1. docker image
+
+	2. docker container
+
+	===============================================================================
+	Docker Image = application code + required software + libraries + configuration
+	================================================================================
+
+	>docker build -t imagename.
+
+					Images
+					 |
+		--------------------------------------------------------
+		|						        |
+	predefined image					userdefined images
+	  1. jdk						according to the project requirements
+	  2. tomcat					        devops team will prepare the Dockerfile
+	  3, mysql						generate the docker image usign Dockerfile
+								
+
+	Container  =  If we run the image then container will be started
+		      i.e. our application and softwares will be up and running
+
+	>docker run imagename
+
+
+	
+Dockerfile:
+===========
+
+	-->It is a normal file without any extension like .txt, .doc..etc
+	-->It has instructions to run the application
+	-->Using Dockerfile,we can build the image
+
+	Dockerfile
+	==========
+
+		FROM OPENJDK
+		eport 2022
+		copy target/spring-bootjar springbootjar
+		Envrionment [java -jar spring-boot.jar]
+
+
+	>docker build -t imagename .
+
+		o/p : docker image
+
+	>docker login -u username -p password // connect docker registry
+	>docker push image
+	>docker pull image
+	>docker run imagename //container
+
+
+Docker Software Installtion:
+============================
+
+	-->From windows 10 on windows from 10 version
+	-->Download the Docker Desktop Installer.exe file https://www.docker.com/products/docker-desktop/
+	-->Double click on it and next, next and finish
+
+===========================================================================================================
+
+Spring Boot integration with Redis Cache:
+=========================================
+
+Q) How to improve the application performance?
+
+Sol :  There so many steps to improve the performance, one of the way is caching
+
+	
+
+	Caching Advantages :
+	===================
+
+		1. Improves performance. i.e. reduce the latency. i.e. get the response in less time
+                   by reducing no.of network calls
+
+		2. Reduce the cost by reducing no.of backend calls (database)
+
+	Add the below dependency in pom.xml
+	<dependency>
+		 <groupId>org.springframework.boot</groupId>
+		 <artifactId>spring-boot-starter-data-redis</artifactId>
+	  </dependency>	 
+
+
+	Spring boot has provided annotation to implement caching
+
+	1. @EnableCache - to enable the caching framework
+
+	2. @Cacheable - It is used to get the data from caching
+
+	3. @CachePut - It is used to insert the data into caching
+
+	4. @CacheEvict	- To remove the data from caching
+
+==========================================================================================================
+
+Spring Boot FAQ's
+
+#1. Which version of spring boot you are using project?
+
+#2. How to deploy your application?Can you explain the deployment?
+
+#3. How to run the spring boot application? what happend when it runs java -jar springboot.jar
+
+#4. Spring boot profiles, how to load the envrionment based properties file
+
+#5. Springboot features
+
+#6. Can you explain how are your implemented security in project? Sol : OAuth
+
+#7. difference normal jar and springboot jar?
+
+#8. How to work with multiple databases in springboot?
+
+#9. Spring data jpa integration
+
+#10. Embeded Servers and how to customize the embeded servers?
+
+#11. Configuration Properties
+
+#12. Devtools
+
+#13. How the autoconfiguration will work internally?can you explain
+
+#14. Write the snippet code which you have implemented in project?
+
+#15. How to implement Exception Handling using Spring Boot?
+
+#16. What is Docker? How to deploy Spring Boot Applications to Docker? 	
+
+#17. How you were integrated spring boot with caching?
+
+#18. How you were integrated spring boot with kafka?	
+			
+
+
+	If any help or any clarifications,please reacout me @ sreenu.sreenutech@gmail.com
+
+	
+
+
+		
+
+
+
+	

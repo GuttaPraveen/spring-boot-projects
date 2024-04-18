@@ -1,0 +1,83 @@
+NOTE: Create application with JPA module for database operations.
+Define REST services for below Requirements:
+
+1. Create Single Order with below information. Please follow below JSON syntax
+{
+	Order Id : Integer
+	Amount : Double
+	No Of Items : Integer
+	Items : String array []
+	Order status : String
+	Payment status :
+	User :
+	{
+		Email id:
+ 		Name :
+ 		Contact:
+ 		City :
+ 		Area :
+	}
+ }
+
+Requirements :
+	• Validate Request Body, like all properties are available in API payload and
+	  validate mandatory fields as well. – Not required
+	• If Order Id is available, then Response should be with valid Status code
+	  and Meaningful message.
+	• If Order Id is not available, then Order should be created and Response
+	  should be with valid Status code and Meaningful message.
+
+2. Update Order with below information. Please follow below JSON syntax
+{
+	Amount : Double
+	No Of Items : Integer
+	Items : String array []
+	Order status : Success/Failure
+	Payment status : Success/Failure
+	User :
+	{
+ 		Email id:
+ 		Name :
+ 		Contact:
+ 		City :
+ 		Area :
+	}
+}
+
+Requirements :
+	• If Order Id is available, After data updating, then Response should be
+	  with valid Status code and Meaningful message.
+	• If Order Id is not available, Response should be with valid Status code
+	  and Meaningful message.
+
+3. Get Orders information with different scenarios.
+ Requirements :
+NOTE: Please use Response Status codes respectively.
+	• Get All Orders with user Id
+	• Get All Orders with user Id and order status
+	• Get All Orders with whose amount is > provided value
+	• Get All Orders from a city and area
+		i. city & area are required data
+		• Get All Orders from a city and area
+		Note: city & area are optional data
+		Note : Add Sorting for below Service.
+	i. if city is passed and area not passed, orders should be loaded only for city value.
+	ii. if city not passed and area passed, orders should be loaded only for area value.
+	iii. if city and area both are passed, orders should be loaded only for city and area values.
+	iv. If both are not passed, then all Orders should load irrespective of city and area values.
+
+4. Delete Orders information with different scenarios.
+ Requirements :
+
+NOTE: Please use Response Status codes respectively.
+	• Delete Order with Order Id
+	• Delete All Orders with user Id
+	• Delete All Orders from a city and area
+
+	i. city & area are required data
+	• Delete All Orders from a city and area
+	Note : city & area are optional data
+		i. if city is passed and area not passed, orders should be deleted only for city value.
+		ii. if city not passed and area passed, orders should be deleted only for area value.
+		iii. if city and area both are passed, orders should be deleted only for city and area values.
+		iv. If both are not passed, then return Repone as either City or Area or both is required.  

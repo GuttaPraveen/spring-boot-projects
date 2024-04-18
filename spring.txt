@@ -1,0 +1,34 @@
+Saving data to the database is called persistence.
+	hard to write code to JDBC
+	Boiletplate code
+	DB dependent
+ORM : Every table should have corresponding Java class
+	Every java class is a table.
+	Every java property  column for a table.
+	Every instance of java class internally having database row.
+
+	Employee_table              Employee.java
+
+	emp_id pk                    int empid;
+	emp_name                     String empname;
+	emp_salary                   int salary;
+		
+		Employee emp = new Employee(); 
+
+	JPA        -  Spring Framework
+	Hibernate  -  Non-Spring Frameworks
+
+In-memory database : Database will be created by springboot
+		     Database will be managed by springboot
+		     Database will be destoryed by springboot
+
+	start of application create In-memory database.
+	for cache purpose use In-Memory database.
+
+Amazon, Flipcaet - 20 cart Items - No Payment Done then - In-Memory database
+
+        2 or 3 days geting mail from customers then Permanent Database
+		Permanenet databse created by the programmers.
+
+DAO Layer -> Java Code -> Dialect -> Java code to native data base code -> JDBC
+Dialect will be convvering the java code into native database code  
